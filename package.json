@@ -1,0 +1,32 @@
+{
+  "name": "login.dfe.api.auth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "jsonwebtoken": "^8.0.1",
+    "passport": "^0.4.0",
+    "passport-azure-ad": "^3.0.8",
+    "proxyquire": "^1.8.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^4.4.1",
+    "eslint-config-airbnb-base": "^11.3.1",
+    "eslint-plugin-import": "^2.7.0",
+    "mocha": "^3.5.3"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DFE-Digital/login.dfe.api.auth.git"
+  },
+  "author": "DfE",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DFE-Digital/login.dfe.api.auth/issues"
+  },
+  "homepage": "https://github.com/DFE-Digital/login.dfe.api.auth#readme"
+}

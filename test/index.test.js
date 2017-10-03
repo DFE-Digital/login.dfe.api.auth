@@ -1,0 +1,73 @@
+const expect = require('chai').expect;
+const proxyquire = require('proxyquire');
+
+const authIndex = require('../src/index')
+
+
+describe('When initialising the authorisation strategy', () => {
+
+  describe('then if the config is not valid', () => {
+
+    it('an error is returned for no config passed', () =>{
+      try{
+        authIndex(undefined,undefined)
+      }catch (e){
+        expect(e.message).to.be.equal('Config must be supplied')
+      }
+    });
+    it('an error is returned if the auth section is not populated', () => {
+      try{
+        authIndex({},{})
+      }catch (e){
+        expect(e.message).to.be.equal('The auth section of the config must be supplied')
+      }
+    })
+  });
+  describe('then if the auth type is not recognised', () => {
+    it('an error is returned saying it is not supported', () => {
+      try{
+        authIndex({},{auth:{type:'test'}})
+      }catch (e){
+        expect(e.message).to.be.equal('no supported auth strategy defined!')
+      }
+    })
+  });
+  describe('then if the config is valid and the auth type is set to secret', () => {
+    it('then the JwtAuthorization type is returned', () => {
+      var actual = authIndex({},{auth:{type:'secret'}})
+
+      expect(actual).to.be.a('function');
+      expect(actual.length).to.be.equal(3);
+    })
+  });
+  describe('then if the config type is set to AAD', () => {
+    it('an error is returned if the ClientId is not set', () => {
+      try{
+        authIndex({},{auth:{type:'aad'}})
+      }catch (e){
+        expect(e.message).to.be.equal('clientId must be set for aad auth')
+      }
+    });
+    it('an error is returned if the identityMetadata is not set', () => {
+      try{
+        authIndex({},{auth:{type:'aad',clientID:'test'}})
+      }catch (e){
+        expect(e.message).to.be.equal('identityMetadata must be set for aad auth')
+      }
+    });
+    it('then the AzureAD type is returned when the config is valid', () => {
+
+      let expectedVal ='';
+      const aadAuthStub = function(){
+        expectedVal = 'test';
+      };
+
+      var authIndexProxy = proxyquire('../src/index', {'./Authorization/AadAuthorisation': aadAuthStub});
+
+      authIndexProxy({},{auth:{type:'aad',clientID:'test', identityMetadata:'test'}})
+
+      expect(expectedVal).to.be.equal('test');
+    });
+  });
+
+});
