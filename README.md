@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/DFE-Digital/login.dfe.api.auth.svg?branch=master)](https://travis-ci.org/DFE-Digital/login.dfe.api.auth)
+
 # login.dfe.api.auth
 
 Package to provide auth strategy for API projects
