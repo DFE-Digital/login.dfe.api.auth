@@ -10,14 +10,13 @@ module.exports = (app, config) => {
     assert(config.auth, 'The auth section of the config must be supplied');
 
 
-  if (config.auth.type === 'secret') {
+  if (config.auth.type.toLowerCase() === 'secret') {
    return jwt(config.auth.secret);
   }
 
-  if (config.auth.type === 'aad') {
+  if (config.auth.type.toLowerCase() === 'aad') {
     assert(config.auth.clientID, 'clientId must be set for aad auth');
     assert(config.auth.identityMetadata, 'identityMetadata must be set for aad auth');
-
 
     const options = {
       identityMetadata: config.auth.identityMetadata,
