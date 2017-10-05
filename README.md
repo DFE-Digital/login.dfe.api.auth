@@ -15,7 +15,8 @@ Your config requires a section called 'auth' which should look like the followin
 ```
 {
     auth: {
-        type: 'secret'
+        type: 'secret',
+        secret: 'jwt-signing-secret'
     }
 }
 ```
