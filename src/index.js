@@ -1,17 +1,17 @@
 'use strict';
+
 const assert = require('assert');
 
 const jwt = require('./Authorization/JwtAuthorization');
 const aad = require('./Authorization/AadAuthorisation');
 
 module.exports = (app, config) => {
-
-    assert(config, 'Config must be supplied');
-    assert(config.auth, 'The auth section of the config must be supplied');
+  assert(config, 'Config must be supplied');
+  assert(config.auth, 'The auth section of the config must be supplied');
 
 
   if (config.auth.type.toLowerCase() === 'secret') {
-   return jwt(config.auth.secret);
+    return jwt(config.auth.secret);
   }
 
   if (config.auth.type.toLowerCase() === 'aad') {
@@ -23,11 +23,11 @@ module.exports = (app, config) => {
       clientID: config.auth.clientID,
       validateIssuer: true,
       loggingLevel: 'info',
-      passReqToCallback: false
+      passReqToCallback: false,
     };
 
-    return aad(app, options)
+    return aad(app, options);
   }
 
-  throw new Error('no supported auth strategy defined!')
+  throw new Error('no supported auth strategy defined!');
 };
