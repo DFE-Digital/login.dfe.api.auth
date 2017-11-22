@@ -5,7 +5,7 @@ const BearerStrategy = require('passport-azure-ad').BearerStrategy;
 
 module.exports = (app, options) => {
   const bearerStrategy = new BearerStrategy(options,
-    function (token, done) {
+    (token, done) => {
       // Send user info using the second argument
       done(null, {}, token);
     }
@@ -16,9 +16,3 @@ module.exports = (app, options) => {
 
   return passport.authenticate('oauth-bearer', {session: false})
 };
-
-
-
-
-
-

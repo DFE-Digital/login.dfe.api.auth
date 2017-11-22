@@ -1,7 +1,7 @@
-const expect = require('chai').expect;
-const proxyquire = require('proxyquire');
 
-const authIndex = require('../src/index')
+jest.mock('./../src/Authorization/AadAuthorisation');
+
+const authIndex = require('../src/index');
 
 
 describe('When initialising the authorisation strategy', () => {
@@ -10,63 +10,58 @@ describe('When initialising the authorisation strategy', () => {
 
     it('an error is returned for no config passed', () =>{
       try{
-        authIndex(undefined,undefined)
+        authIndex(undefined,undefined);
       }catch (e){
-        expect(e.message).to.be.equal('Config must be supplied')
+        expect(e.message).toBe('Config must be supplied');
       }
     });
     it('an error is returned if the auth section is not populated', () => {
       try{
         authIndex({},{})
       }catch (e){
-        expect(e.message).to.be.equal('The auth section of the config must be supplied')
+        expect(e.message).toBe('The auth section of the config must be supplied')
       }
     })
   });
   describe('then if the auth type is not recognised', () => {
     it('an error is returned saying it is not supported', () => {
       try{
-        authIndex({},{auth:{type:'test'}})
+        authIndex({},{auth:{type:'test'}});
       }catch (e){
-        expect(e.message).to.be.equal('no supported auth strategy defined!')
+        expect(e.message).toBe('no supported auth strategy defined!');
       }
     })
   });
   describe('then if the config is valid and the auth type is set to secret', () => {
     it('then the JwtAuthorization type is returned', () => {
-      var actual = authIndex({},{auth:{type:'secret'}})
+      const actual = authIndex({},{auth:{type:'secret'}});
 
-      expect(actual).to.be.a('function');
-      expect(actual.length).to.be.equal(3);
+      expect(actual.length).toBe(3);
     })
   });
   describe('then if the config type is set to AAD', () => {
     it('an error is returned if the ClientId is not set', () => {
       try{
-        authIndex({},{auth:{type:'aad'}})
+        authIndex({},{auth:{type:'aad'}});
       }catch (e){
-        expect(e.message).to.be.equal('clientId must be set for aad auth')
+        expect(e.message).toBe('clientId must be set for aad auth');
       }
     });
     it('an error is returned if the identityMetadata is not set', () => {
       try{
-        authIndex({},{auth:{type:'aad',clientID:'test'}})
+        authIndex({},{auth:{type:'aad',clientID:'test'}});
       }catch (e){
-        expect(e.message).to.be.equal('identityMetadata must be set for aad auth')
+        expect(e.message).toBe('identityMetadata must be set for aad auth');
       }
     });
     it('then the AzureAD type is returned when the config is valid', () => {
+      const authIndexProxy = require('./../src/Authorization/AadAuthorisation');
+      let aadStub = jest.fn().mockImplementation(() => ({  }));
+      authIndexProxy.mockImplementation(aadStub);
 
-      let expectedVal ='';
-      const aadAuthStub = function(){
-        expectedVal = 'test';
-      };
+      authIndex({},{auth:{type:'aad',clientID:'test', identityMetadata: 'test'}});
 
-      var authIndexProxy = proxyquire('../src/index', {'./Authorization/AadAuthorisation': aadAuthStub});
-
-      authIndexProxy({},{auth:{type:'aad',clientID:'test', identityMetadata:'test'}})
-
-      expect(expectedVal).to.be.equal('test');
+      expect(aadStub.mock.calls.length).toBe(1);
     });
   });
 
