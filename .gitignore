@@ -57,3 +57,15 @@ typings/
 # dotenv environment variables file
 .env
 
+# WebStorm Stuff
+
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/codeStyles/Project.xml
+.idea/codeStyles/codeStyleConfig.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/login.dfe.api.auth.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+
