@@ -20,6 +20,7 @@ module.exports = secret => (req, res, next) => {
       req.decoded = decoded;
       return next();
     });
+  } else {
+    return res.status(403).send(getFailureMessage());
   }
-  return res.status(403).send(getFailureMessage());
 };
