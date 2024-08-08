@@ -1,6 +1,6 @@
 {
   "name": "login.dfe.api.auth",
-  "version": "2.3.0",
+  "version": "2.3.2",
   "description": "",
   "main": "src/index.js",
   "dependencies": {
@@ -17,7 +17,7 @@
     "jest-cli": "^29.7.0"
   },
   "scripts": {
-    "test": "./node_modules/.bin/jest"
+    "test": "jest --runInBand --coverage"
   },
   "repository": {
     "type": "git",
