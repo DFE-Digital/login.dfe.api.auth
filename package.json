@@ -17,7 +17,7 @@
     "jest-cli": "^29.7.0"
   },
   "scripts": {
-    "test": "./node_modules/.bin/jest"
+    "test": "jest --runInBand --coverage"
   },
   "repository": {
     "type": "git",
