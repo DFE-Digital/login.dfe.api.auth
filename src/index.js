@@ -22,7 +22,7 @@ module.exports = (app, config) => {
       identityMetadata: config.auth.identityMetadata,
       clientID: config.auth.clientID,
       validateIssuer: true,
-      loggingLevel: 'info',
+      loggingLevel: 'error',
       passReqToCallback: false,
     };
 
