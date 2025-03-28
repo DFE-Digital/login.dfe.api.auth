@@ -1,5 +1,3 @@
-"use strict";
-
 const passport = require("passport");
 const BearerStrategy = require("passport-azure-ad").BearerStrategy;
 
