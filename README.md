@@ -22,6 +22,7 @@ Your config requires a section called 'auth' which should look like the followin
 ```
 
 And for AzureActiveDirectory
+
 ```
 {
     auth: {
@@ -35,6 +36,7 @@ And for AzureActiveDirectory
 An example of this is available on [GitHub](https://github.com/DFE-Digital/login.dfe.hot-config/blob/master/config/login.dfe.hot-config.dev.json)
 
 ### Usage
+
 ```
 const auth = require('login.dfe.api.auth')
 .
