@@ -1,6 +1,6 @@
 {
   "name": "login.dfe.api.auth",
-  "version": "2.3.4",
+  "version": "2.3.5-prerelease",
   "description": "",
   "main": "src/index.js",
   "dependencies": {
